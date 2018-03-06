@@ -59,6 +59,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
 		'admin' => \App\Http\Middleware\Admin::class,
+		'role_admin' => \App\Http\Middleware\roleAdmin::class,
 		'lang' => \App\Http\Middleware\CheckLang::class,
 		'auth.comments' => \Laravelista\Comments\Http\Middleware\Authenticate::class,
     ];
