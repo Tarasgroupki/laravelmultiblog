@@ -1,11 +1,11 @@
 # laravelmultiblog
-\n
+<br />
 This is a multilanguage blog with role system and other modules
-\n
+<br />
 #Add an images source
-\n
+<br />
 php artisan storage:link
-\n
+<br />
 #Add all migrations after
-\n
+<br />
 php artisan migrate
