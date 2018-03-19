@@ -66,6 +66,7 @@ Route::patch('role/create',  ['as' => 'roles.update', 'uses' => 'RulesController
 Route::patch('role/update/{id}',  ['as' => 'roles.add', 'uses' => 'RulesController@update']);
 Route::get('role/destroy/{id}',  ['as' => 'roles.destroy', 'uses' => 'RulesController@destroy']);
 /*end of Rules links*/
+
 /*Posts links*/
 Route::get('posts/index',['as' => 'posts.index','uses' => 'PostsController@index']);
 Route::get('posts/create',['as' => 'posts.create','uses' => 'PostsController@create']);
@@ -75,6 +76,7 @@ Route::get('posts/edit/{id}',['as' => 'posts.edit','uses' => 'PostsController@ed
 Route::post('posts/store',['as' => 'posts.store','uses' => 'PostsController@store']);
 Route::put('posts/update/{id}',['as' => 'posts.update','uses' => 'PostsController@update']);
 /*end of Posts links*/
+
 /*Categories links*/
 Route::get('categories/index',['as' => 'categories.index','uses' => 'CategoriesController@index']);
 Route::get('categories/create',['as' => 'categories.create','uses' => 'CategoriesController@create']);
@@ -84,9 +86,32 @@ Route::get('categories/edit/{id}',['as' => 'categories.edit','uses' => 'Categori
 Route::post('categories/store',['as' => 'categories.store','uses' => 'CategoriesController@store']);
 Route::put('categories/update/{id}',['as' => 'categories.update','uses' => 'CategoriesController@update']);
 /*end of Categories links*/
+
+/*Users links*/
 Route::get('users/index',['as' => 'user.index','uses' => 'UserController@indexUser']);
 Route::get('users/edit/{id}',['as' => 'user.editRoles','uses' => 'UserController@editRole']);
 Route::get('users/destroy/{id}',['as' => 'user.destroy','uses' => 'UserController@destroy']);
 Route::get('/{locale}/users/{user}',  ['uses' => 'UserController@edit'])->where(['locale' => '[A-Za-z]+','user' => '[0-9]+'])->name('users_edit');
 Route::patch('users/update/{id}',  ['as' => 'user.add', 'uses' => 'UserController@updateRole']);
 Route::patch('{locale}/users/{user}',  ['as' => 'users.update', 'uses' => 'UserController@update']);
+/*end of Users links*/
+
+/*Albums links*/
+Route::get('album/{id}', array('as' => 'index','uses' => 'AlbumsController@getList'));
+Route::get('albums/createalbum', array('as' => 'create_album_form','uses' => 'AlbumsController@getForm'));
+Route::post('albums/createalbum', array('as' => 'create_album','uses' => 'AlbumsController@postCreate'));
+Route::get('albums/deletealbum/{id}', array('as' => 'delete_album','uses' => 'AlbumsController@getDelete'));
+Route::get('albums/album/{id}', array('as' => 'show_album','uses' => 'AlbumsController@getAlbum'));
+/*end of Albums links*/
+
+/*Images links*/
+Route::get('images/add',['as' => 'add_image','uses' => 'AlbumsController@getAlbum']);
+Route::get('images/delete/{id}',['as' => 'delete_image','uses' => 'AlbumsController@getAlbum']);
+Route::get('images/main/{album}/{id}',['as' => 'main_img','uses' => 'AlbumsController@setMainImage']);
+Route::post('image/upload/{id}',['as' => 'download_img','uses' => 'AlbumsController@downloadImage']);
+Route::get('image/delete/{id}',['as' => 'delete_img','uses' => 'AlbumsController@deleteImage']);
+/*end of Images links*/
+Route::put('comments/add/{id}',['as' => 'add_comment','uses' => 'CommentsController@CommentsAdd']);
+Route::put('comments/add_pr/{id}/{parent_id}',['as' => 'add_parent_comment','uses' => 'CommentsController@CommentsAdd']);
+Route::put('comments/edit/{id}',['as' => 'edit_comment','uses' => 'CommentsController@CommentsEdit']);
+Route::get('comments/delete/{id}',['as' => 'delete_comment','uses' => 'CommentsController@CommentsDelete']);

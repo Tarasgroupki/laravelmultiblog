@@ -42,6 +42,7 @@
 
                     <a class="btn btn-info" href="{{ route('posts.show',$product->product_id) }}">Show</a>
                     <a class="btn btn-primary" href="{{ route('posts.edit',$product->product_id) }}">Edit</a>
+					<a class="btn btn-primary" href="{{ route('index',$product->product_id) }}">Images</a>
 
 
                     @csrf
