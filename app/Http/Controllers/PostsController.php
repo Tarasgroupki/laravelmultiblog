@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Posts;
+use App\Album;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 
 class PostsController extends Controller
 {
@@ -56,7 +60,21 @@ class PostsController extends Controller
         request()->validate([
             "posts_arr.*.name" => 'required|string',
 			"posts_arr.*.detail" => 'required',
+            "cover_image"=>'required'
         ]);
+        $file = Input::file('cover_image');
+        $random_name = str_random(8);
+        $destinationPath = 'albums/';
+        $extension = $file->getClientOriginalExtension();
+        $filename = $random_name.'_cover.'.$extension;
+        $uploadSuccess = Input::file('cover_image')
+            ->move($destinationPath, $filename);
+        Album::create(array(
+            'post_id' => $product_id,
+            'name' => 'Album'.$product_id,
+            'description' => Input::get('description'),
+            'cover_image' => $filename,
+        ));
 		//endforeach;
         //Posts::create($request->all());
        foreach($request->posts_arr as $key => $posts):

@@ -29,7 +29,7 @@
     @endif
 
 
-    <form action="{{ route('posts.store') }}" method="POST">
+    <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 <div class="tabs_menu">
 @foreach($languages as $key => $lang)
@@ -79,6 +79,10 @@
                  <option value="{{ $category->category_id }}">{{ $category->cat_name }}</option> 
             @endforeach
 		    </select></p>
+             <div class="form-group">
+                 <label for="cover_image">Select a Cover Image</label>
+                 {{Form::file('cover_image')}}
+             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                     <button type="submit" class="btn btn-primary">Submit</button>
             </div>

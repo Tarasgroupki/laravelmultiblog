@@ -34,5 +34,9 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
-
+    'github' => [
+        'client_id' => '61814a0da105a3235374',         // Your GitHub Client ID
+        'client_secret' => 'e4e5a16f9ff92d18654f084a656b944ddb252ae9', // Your GitHub Client Secret
+        'redirect' => 'http://laravel-forum.ua/login/github/callback',
+    ],
 ];

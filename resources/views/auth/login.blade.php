@@ -45,12 +45,17 @@
                                     <label>
                                         <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
                                     </label>
+                                    <br />
+                                    <a class="btn btn-link" href="{{ route('git') }}">
+                                        <span>GitHub</span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
+
                                 <button type="submit" class="btn btn-primary">
                                     Login
                                 </button>
