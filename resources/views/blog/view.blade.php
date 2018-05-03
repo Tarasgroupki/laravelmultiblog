@@ -18,11 +18,11 @@
     'content_id' =>  $post->product_id 
 ])
 				</div>
-				@if(Auth::user()->id)
+				@if(isset(Auth::user()->id))
 					<form action="{{ route('add_comment',$post->product_id) }}" method="post">
 				@method('PUT')
                 @csrf
-						Nickname:{{ Auth::user()->name }}
+						Nickname:{{ isset(Auth::user()->name) ? Auth::user()->name : ''}}
 						<br />
 						Add a comment:
 						<br />
@@ -61,7 +61,7 @@
 			<form data-parent='{{ $comment->id }}' action="{{ route('add_parent_comment', ['id' => $post->product_id,'parent_id' => $comment->id]) }}" method="post">
 				@method('PUT')
                 @csrf
-						Nickname:{{ Auth::user()->name }}
+						Nickname:{{ isset(Auth::user()->name) ? Auth::user()->name : '' }}
 						<br />
 						Add a comment:
 						<br />
@@ -74,7 +74,7 @@
 		    </form>
 			</td>
 			<td>
-			@if(Auth::user()->id)
+			@if(isset(Auth::user()->id))
                     <ul>
                         <li data-value='{{ $comment->id }}' class="edit" value='{{ $comment->id }}'>
                            edit
@@ -116,7 +116,7 @@
 			<form data-parent='{{ $comment->subcomment->getAttributes()["id"] }}' action="{{ route('add_parent_comment', ['id' => $post->product_id,'parent_id' => $comment->subcomment->getAttributes()['id']]) }}" method="post">
 				@method('PUT')
                 @csrf
-						Nickname:{{ Auth::user()->name }}
+						Nickname:{{ isset(Auth::user()->name) ? Auth::user()->name : '' }}
 						<br />
 						Add a comment:
 						<br />
@@ -129,7 +129,7 @@
 		    </form>
 			</td>
 			<td>
-			@if(Auth::user()->id)
+			@if(isset(Auth::user()->id))
                     <ul>
                         <li data-value='{{ $comment->subcomment->getAttributes()["id"] }}' class="edit" value='{{ $comment->subcomment->getAttributes()["id"] }}'>
                            edit

@@ -32,9 +32,9 @@ foreach ($instances as $name => $instance) {
     });
 }
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
 
 //Auth::routes();
 
@@ -42,6 +42,8 @@ Route::get('/', function () {
 $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
 $this->post('login', 'Auth\LoginController@login');
 $this->post('logout', 'Auth\LoginController@logout')->name('logout');
+$this->get('login/github', 'HomeController@redirectToProvider')->name('git');
+$this->get('login/github/callback', 'HomeController@handleProviderCallback');
 
 // Registration Routes...
 $this->get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
@@ -54,46 +56,46 @@ $this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 $this->post('password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::get('/{locale}/home', 'HomeController@index')->name('home');
-Route::get('/{locale}/posts', 'HomeController@blogIndex')->name('blog');
+
 Route::get('/{locale}/posts/{id}/{slug}', 'HomeController@blogIndex')->where(['id' => '[0-9]+','slug' => '[A-Za-z0-9]+'])->name('cat_blog');
 Route::get('/{locale}/post/{id}/{slug}', 'HomeController@blogView')->where(['id' => '[0-9]+','slug' => '[A-Za-z0-9]+'])->name('blog_view');
 /*end of Rules links*/
-Route::get('role/create','RulesController@indexCreate')->name('addRole');
-Route::get('role','RulesController@index')->name('indexRole');
-Route::get('role/edit/{id}','RulesController@edit')->name('editRole');
-Route::get('role/{id}','RulesController@indexCreate')->where(['id' => '[0-9]+'])->name('updateRole');
-Route::patch('role/create',  ['as' => 'roles.update', 'uses' => 'RulesController@create']);
-Route::patch('role/update/{id}',  ['as' => 'roles.add', 'uses' => 'RulesController@update']);
-Route::get('role/destroy/{id}',  ['as' => 'roles.destroy', 'uses' => 'RulesController@destroy']);
+Route::get('admin/role','RulesController@index')->name('indexRole');
+Route::get('admin/role/create','RulesController@indexCreate')->name('addRole');
+Route::get('admin/role/edit/{id}','RulesController@edit')->name('editRole');
+Route::get('admin/role/{id}','RulesController@indexCreate')->where(['id' => '[0-9]+'])->name('updateRole');
+Route::patch('admin/role/create',  ['as' => 'roles.update', 'uses' => 'RulesController@create']);
+Route::patch('admin/role/update/{id}',  ['as' => 'roles.add', 'uses' => 'RulesController@update']);
+Route::get('admin/role/destroy/{id}',  ['as' => 'roles.destroy', 'uses' => 'RulesController@destroy']);
 /*end of Rules links*/
 
 /*Posts links*/
-Route::get('posts/index',['as' => 'posts.index','uses' => 'PostsController@index']);
-Route::get('posts/create',['as' => 'posts.create','uses' => 'PostsController@create']);
-Route::get('posts/destroy/{id}',['as' => 'posts.destroy','uses' => 'PostsController@destroy']);
-Route::get('posts/show/{id}',['as' => 'posts.show','uses' => 'PostsController@show']);
-Route::get('posts/edit/{id}',['as' => 'posts.edit','uses' => 'PostsController@edit']);
-Route::post('posts/store',['as' => 'posts.store','uses' => 'PostsController@store']);
-Route::put('posts/update/{id}',['as' => 'posts.update','uses' => 'PostsController@update']);
+Route::get('admin',['as' => 'posts.index','uses' => 'PostsController@index']);
+Route::get('admin/posts/create',['as' => 'posts.create','uses' => 'PostsController@create']);
+Route::get('admin/posts/destroy/{id}',['as' => 'posts.destroy','uses' => 'PostsController@destroy']);
+Route::get('admin/posts/show/{id}',['as' => 'posts.show','uses' => 'PostsController@show']);
+Route::get('admin/posts/edit/{id}',['as' => 'posts.edit','uses' => 'PostsController@edit']);
+Route::post('admin/posts/store',['as' => 'posts.store','uses' => 'PostsController@store']);
+Route::put('admin/posts/update/{id}',['as' => 'posts.update','uses' => 'PostsController@update']);
 /*end of Posts links*/
 
 /*Categories links*/
-Route::get('categories/index',['as' => 'categories.index','uses' => 'CategoriesController@index']);
-Route::get('categories/create',['as' => 'categories.create','uses' => 'CategoriesController@create']);
-Route::get('categories/destroy/{id}',['as' => 'categories.destroy','uses' => 'CategoriesController@destroy']);
-Route::get('categories/show/{id}',['as' => 'categories.show','uses' => 'CategoriesController@show']);
-Route::get('categories/edit/{id}',['as' => 'categories.edit','uses' => 'CategoriesController@edit']);
-Route::post('categories/store',['as' => 'categories.store','uses' => 'CategoriesController@store']);
-Route::put('categories/update/{id}',['as' => 'categories.update','uses' => 'CategoriesController@update']);
+Route::get('admin/categories/index',['as' => 'categories.index','uses' => 'CategoriesController@index']);
+Route::get('admin/categories/create',['as' => 'categories.create','uses' => 'CategoriesController@create']);
+Route::get('admin/categories/destroy/{id}',['as' => 'categories.destroy','uses' => 'CategoriesController@destroy']);
+Route::get('admin/categories/show/{id}',['as' => 'categories.show','uses' => 'CategoriesController@show']);
+Route::get('admin/categories/edit/{id}',['as' => 'categories.edit','uses' => 'CategoriesController@edit']);
+Route::post('admin/categories/store',['as' => 'categories.store','uses' => 'CategoriesController@store']);
+Route::put('admin/categories/update/{id}',['as' => 'categories.update','uses' => 'CategoriesController@update']);
 /*end of Categories links*/
 
 /*Users links*/
-Route::get('users/index',['as' => 'user.index','uses' => 'UserController@indexUser']);
-Route::get('users/edit/{id}',['as' => 'user.editRoles','uses' => 'UserController@editRole']);
-Route::get('users/destroy/{id}',['as' => 'user.destroy','uses' => 'UserController@destroy']);
-Route::get('/{locale}/users/{user}',  ['uses' => 'UserController@edit'])->where(['locale' => '[A-Za-z]+','user' => '[0-9]+'])->name('users_edit');
-Route::patch('users/update/{id}',  ['as' => 'user.add', 'uses' => 'UserController@updateRole']);
-Route::patch('{locale}/users/{user}',  ['as' => 'users.update', 'uses' => 'UserController@update']);
+Route::get('admin/users/index',['as' => 'user.index','uses' => 'UserController@indexUser']);
+Route::get('admin/users/edit/{id}',['as' => 'user.editRoles','uses' => 'UserController@editRole']);
+Route::get('admin/users/destroy/{id}',['as' => 'user.destroy','uses' => 'UserController@destroy']);
+Route::get('admin/{locale}/users/{user}',  ['uses' => 'UserController@edit'])->where(['locale' => '[A-Za-z]+','user' => '[0-9]+'])->name('users_edit');
+Route::patch('admin/users/update/{id}',  ['as' => 'user.add', 'uses' => 'UserController@updateRole']);
+Route::patch('admin/{locale}/users/{user}',  ['as' => 'users.update', 'uses' => 'UserController@update']);
 /*end of Users links*/
 
 /*Albums links*/
@@ -115,3 +117,4 @@ Route::put('comments/add/{id}',['as' => 'add_comment','uses' => 'CommentsControl
 Route::put('comments/add_pr/{id}/{parent_id}',['as' => 'add_parent_comment','uses' => 'CommentsController@CommentsAdd']);
 Route::put('comments/edit/{id}',['as' => 'edit_comment','uses' => 'CommentsController@CommentsEdit']);
 Route::get('comments/delete/{id}',['as' => 'delete_comment','uses' => 'CommentsController@CommentsDelete']);
+Route::get('{locale}/', 'HomeController@blogIndex')->where(['locale' => '([a-zA-Z0-9_\./]+)|(/[a-zA-Z0-9_\./]*)|$'])->name('blog');
