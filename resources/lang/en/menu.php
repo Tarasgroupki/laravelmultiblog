@@ -17,6 +17,7 @@ return [
     'Posts' => 'Posts',
     'login' => 'Login',
 	'register' => 'Registration',
-	'logout' => 'Logout'
+	'logout' => 'Logout',
+    'chat' => 'Chat'
 
 ];

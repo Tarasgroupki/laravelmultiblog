@@ -39,11 +39,6 @@ class HomeController extends Controller
     }
 	public function blogIndex($locale = "en",$id = null)
 	{
-	    //var_dump($locale);die;
-        //Socialite::driver('github')->redirect();
-        //$user_social = Socialite::driver('github')->user();
-        //echo $user_social->token;
-	//$user = Auth::user();
 	    if($id == null):
 		/*$posts = DB::select('select p.*,a.cover_image from posts AS p JOIN albums AS a ON p.product_id = a.post_id where p.locale = ?',[$locale]);*/
 		$posts = Posts::query()->select(['posts.*','albums.cover_image'])->join('albums','posts.product_id','=','albums.post_id')->where('posts.locale',$locale)->paginate(5);

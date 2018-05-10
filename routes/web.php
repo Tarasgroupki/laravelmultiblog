@@ -37,7 +37,12 @@ foreach ($instances as $name => $instance) {
 });*/
 
 //Auth::routes();
-
+/*Messages links*/
+$this->get('chat/index',['as' => 'chat','uses' => 'MessagesController@index']);
+$this->get('chat/{id}',['as' => 'chat_view','uses' => 'MessagesController@show']);
+$this->post('chat/store',['as' => 'chat.store','uses' => 'MessagesController@store']);
+$this->get('chat/delete/{id}',['as' => 'chat_delete','uses' => 'MessagesController@destroy']);
+/*end of Messages links*/
 // Authentication Routes...
 $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
 $this->post('login', 'Auth\LoginController@login');

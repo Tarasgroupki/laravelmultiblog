@@ -39,6 +39,7 @@
                             <li><a class="nav-link" href="{{ route('login',['locale' => App::getLocale()]) }}">@lang('menu.login')</a></li>
                             <li><a class="nav-link" href="{{ route('register',['locale' => App::getLocale()]) }}">@lang('menu.register')</a></li>
                         @else
+                            <li><a class="nav-link" href="{{ route('chat') }}">@lang('menu.chat')</a></li>
                             <li class="nav-item dropdown">
 						
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
